@@ -65,14 +65,14 @@ TABLE_LISTING = [[__language__(30050), 1000], # Movies
 		[__language__(30052), 9]] # SD
 
 def nzbmatrix(params):
-    if not(params):
-        user_id = get_user_id()
-        if not user_id:
-            xbmc.executebuiltin("XBMC.Notification(%s, %s)" % (__language__(30030), __language__(30045)))
-            exit(0)
-    if not(__settings__.getSetting("nzbmatrix_username") and __settings__.getSetting("nzbmatrix_key")):
-        __settings__.openSettings()
-    else:
+	if not(params):
+		user_id = get_user_id()
+		if not user_id:
+			xbmc.executebuiltin("XBMC.Notification(%s, %s)" % (__language__(30030), __language__(30045)))
+			exit(0)
+	if not(__settings__.getSetting("nzbmatrix_username") and __settings__.getSetting("nzbmatrix_key")):
+		__settings__.openSettings()
+	else:
 		if not os.path.exists(CACHEDIR):
 			os.makedirs(CACHEDIR)
 		if params:
@@ -163,7 +163,7 @@ def nzbmatrix(params):
 				addPosts({'title': name}, key, MODE_NZBMATRIX, True)
 			addPosts({'title': __language__(30044), 'thumb': os.path.join(ADDON_PATH, "resources/icons/bookmarks.png")}, '', MODE_BOOKMARKS, True)
 			addPosts({'title': __language__(30037), 'thumb': os.path.join(ADDON_PATH, "resources/icons/incomplete.png")}, '', MODE_INCOMPLETE, True)
-    return
+	return
  
 def addPosts(meta, url, mode, folder=False, bookmarkList=False):
 	if not meta.has_key('thumb'):
@@ -198,17 +198,17 @@ def addPosts(meta, url, mode, folder=False, bookmarkList=False):
  
 # FROM plugin.video.youtube.beta  -- converts the request url passed on by xbmc to our plugin into a dict  
 def getParameters(parameterString):
-    commands = {}
-    splitCommands = parameterString[parameterString.find('?')+1:].split('&')
-    
-    for command in splitCommands: 
-        if (len(command) > 0):
-            splitCommand = command.split('=')
-            name = splitCommand[0]
-            value = splitCommand[1]
-            commands[name] = value
-    
-    return commands
+	commands = {}
+	splitCommands = parameterString[parameterString.find('?')+1:].split('&')
+	
+	for command in splitCommands: 
+		if (len(command) > 0):
+			splitCommand = command.split('=')
+			name = splitCommand[0]
+			value = splitCommand[1]
+			commands[name] = value
+	
+	return commands
 
 def get_node_value(parent, name, ns=""):
 	if ns:
@@ -377,25 +377,25 @@ def get_user_id():
 		return False
 
 def search(dialog_name):
-    searchString = unikeyboard(__settings__.getSetting( "latestSearch" ), __language__(30038) )
-    if searchString == "":
-        xbmcgui.Dialog().ok(__language__(30030),__language__(30041))
-    elif searchString:
-        latestSearch = __settings__.setSetting( "latestSearch", searchString )
-        dialogProgress = xbmcgui.DialogProgress()
-        dialogProgress.create(dialog_name, __language__(30042) , searchString)
-        #The XBMC onscreen keyboard outputs utf-8 and this need to be encoded to unicode
-    encodedSearchString = urllib.quote_plus(searchString.decode("utf_8").encode("raw_unicode_escape"))
-    return encodedSearchString
+	searchString = unikeyboard(__settings__.getSetting( "latestSearch" ), __language__(30038) )
+	if searchString == "":
+		xbmcgui.Dialog().ok(__language__(30030),__language__(30041))
+	elif searchString:
+		latestSearch = __settings__.setSetting( "latestSearch", searchString )
+		dialogProgress = xbmcgui.DialogProgress()
+		dialogProgress.create(dialog_name, __language__(30042) , searchString)
+		#The XBMC onscreen keyboard outputs utf-8 and this need to be encoded to unicode
+	encodedSearchString = urllib.quote_plus(searchString.decode("utf_8").encode("raw_unicode_escape"))
+	return encodedSearchString
 
-#From old undertexter.se plugin    
+#From old undertexter.se plugin	
 def unikeyboard(default, message):
-    keyboard = xbmc.Keyboard(default, message)
-    keyboard.doModal()
-    if (keyboard.isConfirmed()):
-        return keyboard.getText()
-    else:
-        return ""
+	keyboard = xbmc.Keyboard(default, message)
+	keyboard.doModal()
+	if (keyboard.isConfirmed()):
+		return keyboard.getText()
+	else:
+		return ""
 
 if (__name__ == "__main__" ):
 	if not (__settings__.getSetting("firstrun") and __settings__.getSetting("nzbmatrix_key")
