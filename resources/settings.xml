@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	<category label="30020">
+		<setting id="english_only" type="bool" label="30034"/>
+		<setting id="scrape_metadata" type="bool" label="30035"/>
+		<setting id="show_scene_title" enable="eq(-1,true)" type="bool" label="30036"/>
+		<setting id="delete_cache" enable="eq(-2,true)" type="action" label="30060" action="RunPlugin(plugin://plugin.video.nzbmatrix/?nzbmatrix=delete_cache)"/>
+	</category>
+	<category label="30021">
+		<setting id="nzbmatrix_username" type="text" label="30031" default="" />
+		<setting id="nzbmatrix_key" type="text" label="30032" default=""/>
+	</category>
+</settings>

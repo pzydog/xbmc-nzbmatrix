@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.nzbmatrix"
+	name="NZB Matrix"
+	version="0.0.3"
+	provider-name="pzydog">
+	<requires>
+		<import addon="xbmc.python" version="1.0"/>
+		<import addon="plugin.video.nzbs" version="0.0.10"/>
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="default.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary>NZB Matrix</summary>
+		<description>Browse and stream from nzbmatrix.com</description>
+		<disclaimer>Requires the NZBS add-on</disclaimer>
+	</extension>
+</addon>

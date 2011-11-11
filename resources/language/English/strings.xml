@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+    <!-- Plugin settings strings -->
+    <string id="30020">General</string>
+    <string id="30021">Account</string>
+    <string id="30030">NZB Matrix</string>
+    <string id="30031">Nzb Matrix username</string>
+    <string id="30032">Nzb Matrix API key</string>
+    <string id="30034">English/Unknown only</string>
+    <string id="30035">Scrape metadata (slower)</string>
+    <string id="30036"> - Show scene names</string>
+    <string id="30060"> - Delete cache</string>
+    <string id="30066">Deleting cache files</string>
+
+    <!-- Menu strings -->
+    <string id="30043">Search...</string>
+    <string id="30037">Incomplete...</string>
+    <string id="30044">Bookmarks...</string>
+    <string id="30050">Movies</string>
+    <string id="30051"> - HD</string>
+    <string id="30052"> - SD</string>
+    <string id="30053"> - BRRip</string>
+    <string id="30054"> - Other</string>
+    <string id="30055">TV</string>
+    <string id="30056"> - Sport/Entertainment</string>
+    <string id="30057">Documentaries</string>
+
+    <!-- Dialog strings -->
+    <string id="30038">Search Nzb Matrix</string>
+    <string id="30039">Error: No results found for your search</string>
+    <string id="30040">Error loading bookmarks</string>
+    <string id="30041">Missing text</string>
+    <string id="30042">Searching for: </string>
+    <string id="30045">Error: Wrong username or API key</string>
+	
+	<!-- Misc string -->
+    <string id="30070">Download</string>
+    <string id="30071">Add to bookmarks</string>
+    <string id="30072">Remove bookmark</string>
+    <string id="30073">Adding bookmark...</string>
+    <string id="30074">Bookmark added!</string>
+    <string id="30075">Couldn't add bookmark...</string>
+	<string id="30076">Removing bookmark...</string>
+    <string id="30077">Bookmark removed!</string>
+    <string id="30078">Couldn't remove bookmark...</string>
+	
+</strings>
