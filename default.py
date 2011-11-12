@@ -26,6 +26,7 @@
 import urllib, urllib2
 import re, os, time, datetime
 import xbmc, xbmcaddon, xbmcgui, xbmcplugin
+import xml.parsers.expat
 from xml.dom.minidom import parse, parseString
 
 __settings__ = xbmcaddon.Addon(id='plugin.video.nzbmatrix')
@@ -237,9 +238,17 @@ def load_xml(url, cache=False):
 	if not response:
 		return False
 	else:
-		xml = response.read()
+		xml_str = response.read()
 		response.close()
-		return parseString(xml)
+		try:
+			parser = xml.parsers.expat.ParserCreate()
+			parser.Parse(xml_str)
+			return parseString(xml_str)
+		except Exception, e:
+			xbmc.log("Invalid response: %s %s %s" % (url, xml_str, e))
+			xbmc.executebuiltin("XBMC.Notification(%s, %s)" % (__language__(30030), __language__(30046)))
+			exit(0)
+			return False
 
 ## Generates the URL to the RSS feeds determined by category id and search term if available
 # @param str catid The ID from the category we want

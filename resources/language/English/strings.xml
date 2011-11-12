@@ -3,9 +3,9 @@
     <!-- Plugin settings strings -->
     <string id="30020">General</string>
     <string id="30021">Account</string>
-    <string id="30030">NZB Matrix</string>
-    <string id="30031">Nzb Matrix username</string>
-    <string id="30032">Nzb Matrix API key</string>
+    <string id="30030">NZBMatrix</string>
+    <string id="30031">NZBMatrix username</string>
+    <string id="30032">NZBMatrix API key</string>
     <string id="30034">English/Unknown only</string>
     <string id="30035">Scrape metadata (slower)</string>
     <string id="30036"> - Show scene names</string>
@@ -26,12 +26,13 @@
     <string id="30057">Documentaries</string>
 
     <!-- Dialog strings -->
-    <string id="30038">Search Nzb Matrix</string>
+    <string id="30038">Search NZBMatrix</string>
     <string id="30039">Error: No results found for your search</string>
     <string id="30040">Error loading bookmarks</string>
     <string id="30041">Missing text</string>
     <string id="30042">Searching for: </string>
     <string id="30045">Error: Wrong username or API key</string>
+    <string id="30046">Error: Invalid response from NZBMatrix</string>
 	
 	<!-- Misc string -->
     <string id="30070">Download</string>
