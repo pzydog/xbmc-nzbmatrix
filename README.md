@@ -2,7 +2,7 @@ NZBMatrix addon for xbmc-nzbs
 =============================
  
 * Author:  pzydog
-* Version: 0.0.3
+* Version: 0.0.4
 * Website: <http://forum.xbmc.org/showthread.php?t=97657>
 * GitHub:  <https://github.com/pzydog/xbmc-nzbmatrix>
 
@@ -19,7 +19,6 @@ Features
 
 Notes
 -----
-* For some reason TMDB returns low quality movie posters
 * Metadata is not available for every movie because the data provided by NZBMatrix isn't very consistent.
 
 Credits

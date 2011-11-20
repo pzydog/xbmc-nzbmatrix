@@ -51,6 +51,8 @@ MODE_NZBMATRIX = "nzbmatrix"
 MODE_SEARCH = "nzbmatrix&nzbmatrix=search"
 MODE_BOOKMARKS = "nzbmatrix&nzbmatrix=bookmarks"
 
+MOVIE_CATEGORIES = ['54,2,42,4', '42', '54', '2', '4']
+
 TABLE_LISTING = [[__language__(30050), 1000], # Movies
 		[__language__(30051), 42], # HD
 		[__language__(30053), 54], # Brrip
@@ -147,6 +149,8 @@ def nzbmatrix(params):
 						i += 1
 					progressDialog.close()
 			elif catid:
+				if catid in MOVIE_CATEGORIES:
+					xbmcplugin.setContent(int(sys.argv[1]), 'movies')
 				key = "&catid=" + catid
 				addPosts({'title': __language__(30043), 'thumb': os.path.join(ADDON_PATH, "resources/icons/search.png")}, key, MODE_SEARCH, True)
 				url = generateFeedUrl(catid)
@@ -170,8 +174,9 @@ def addPosts(meta, url, mode, folder=False, bookmarkList=False):
 	if not meta.has_key('thumb'):
 		meta.update({'thumb': ''})
 
-	listitem=xbmcgui.ListItem(meta['title'])
-	listitem.setThumbnailImage(meta['thumb'])
+	listitem=xbmcgui.ListItem(meta['title'], thumbnailImage=meta['thumb'])
+	if meta.has_key('fanart'):
+		listitem.setProperty("Fanart_Image", meta['fanart'])
 	listitem.setInfo(type="video", infoLabels=meta)
 	if mode == MODE_LIST:
 		cm = []
@@ -341,10 +346,12 @@ def get_metadata(imdb_id, metadata):
 					year = time.strptime(metadata['premiered'],"%Y-%m-%d")
 					metadata['year'] = year.tm_year
 				
-				# Get the first image from the list
-				images = movie_meta.getElementsByTagName("images")
-				if images and len(images[0].childNodes) > 1:
-					metadata['thumb'] = images[0].childNodes[1].getAttribute('url')
+				for images in movie_meta.getElementsByTagName("images"):
+					for i in images.getElementsByTagName("image"):
+						if i.getAttribute('size') == 'original' and i.getAttribute('type') == 'poster' and metadata['thumb'] == '':
+							metadata['thumb'] = i.getAttribute('url')
+						if i.getAttribute('size') == 'original' and i.getAttribute('type') == 'backdrop' and metadata['fanart'] == '':
+							metadata['fanart'] = i.getAttribute('url')
 
 				# Get the Genres
 				for categories in movie_meta.getElementsByTagName("categories"):
@@ -358,6 +365,7 @@ def get_default_meta():
 	return {'title': '',
 		'plot': '',
 		'thumb': '',
+		'fanart': '',
 		'rating': 0,
 		'year': 0,
 		'premiered': '',

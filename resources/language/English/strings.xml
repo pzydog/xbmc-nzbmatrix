@@ -32,7 +32,7 @@
     <string id="30041">Missing text</string>
     <string id="30042">Searching for: </string>
     <string id="30045">Error: Wrong username or API key</string>
-    <string id="30046">Error: Invalid response from NZBMatrix</string>
+    <string id="30046">Error: Invalid response</string>
 	
 	<!-- Misc string -->
     <string id="30070">Download</string>
