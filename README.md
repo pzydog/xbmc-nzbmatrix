@@ -1,17 +1,18 @@
 NZBMatrix addon for xbmc-nzbs
 =============================
- 
+
 * Author:  pzydog
-* Version: 0.0.4
+* Version: 0.0.5
 * Website: <http://forum.xbmc.org/showthread.php?t=97657>
 * GitHub:  <https://github.com/pzydog/xbmc-nzbmatrix>
 
 This addon for [xbmc.org](http://xbmc.org/) enables you to stream movies, TV shows and documentaries from [NZBMatrix](http://nzbmatrix.com/).
 
-[xbmc-nzbs](https://github.com/TsUPeR/xbmc-nzbs) addon is needed for this to work. You can find the installation instructions [here](http://forum.xbmc.org/showthread.php?t=97657)
+[xbmc-pneumatic](https://github.com/TsUPeR/xbmc-pneumatic) addon is needed for this to work. You can find the installation instructions [here](http://forum.xbmc.org/showthread.php?t=97657)
 
 Features
 --------
+* Add NZB files to library
 * View/add/delete bookmarks
 * Scrapes metadata from [TMDB](http://www.themoviedb.org/) (optional)
 * Setting to display scene names or normal names
