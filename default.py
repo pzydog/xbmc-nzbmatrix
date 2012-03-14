@@ -43,7 +43,6 @@ CACHEDIR = os.path.join(xbmc.translatePath(ADDON_DATA_PATH), 'meta_cache')
 
 TMDB_API_KEY = "57983e31fb435df4df77afb854740ea9"
 
-MODE_LIST = "list"
 MODE_PLAY = "play"
 MODE_DOWNLOAD = "download"
 MODE_INCOMPLETE = "incomplete"
@@ -428,10 +427,6 @@ if (__name__ == "__main__" ):
 		nzbmatrix(None)
 	else:
 		params = getParameters(sys.argv[2])
-		get = params.get
-		if get("mode")== MODE_LIST:
-			listVideo(params)
-		else:
-			nzbmatrix(params)
+		nzbmatrix(params)
 
 xbmcplugin.endOfDirectory(int(sys.argv[1]), succeeded=True, cacheToDisc=True)
