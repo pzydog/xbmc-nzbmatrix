@@ -30,6 +30,7 @@ import xml.parsers.expat
 from xml.dom.minidom import parse, parseString
 
 __settings__ = xbmcaddon.Addon(id='plugin.video.nzbmatrix')
+__psettings__ = xbmcaddon.Addon(id='plugin.program.pneumatic')
 __language__ = __settings__.getLocalizedString
 
 TMDB_URL = 'http://api.themoviedb.org/2.1/Movie.imdbLookup/en/xml/'
@@ -76,6 +77,8 @@ def nzbmatrix(params):
 			exit(0)
 	if not(__settings__.getSetting("nzbmatrix_username") and __settings__.getSetting("nzbmatrix_key")):
 		__settings__.openSettings()
+	elif not __psettings__.getSetting('firstrun'):
+		__psettings__.openSettings()
 	else:
 		if not os.path.exists(CACHEDIR):
 			os.makedirs(CACHEDIR)
@@ -168,7 +171,7 @@ def nzbmatrix(params):
 					key = "&catid=53,9"
 				addPosts({'title': name}, key, MODE_NZBMATRIX, True)
 			addPosts({'title': __language__(30044), 'thumb': os.path.join(ADDON_PATH, "resources/icons/bookmarks.png")}, '', MODE_BOOKMARKS, True)
-			if xbmcaddon.Addon(id='plugin.program.pneumatic').getSetting("sabnzbd_incomplete") != '':
+			if __psettings__.getSetting("sabnzbd_incomplete") != '':
 				addPosts({'title': __language__(30037), 'thumb': os.path.join(ADDON_PATH, "resources/icons/incomplete.png")}, '', MODE_INCOMPLETE, True)
 	return
 
@@ -183,7 +186,7 @@ def addPosts(meta, url, mode, folder=False, bookmarkList=False):
 	if mode == MODE_PLAY:
 		cm = []
 		cm_label = __language__(30070)
-		if (xbmcaddon.Addon(id='plugin.program.pneumatic').getSetting("auto_play").lower() == "true"):
+		if (__psettings__.getSetting("auto_play").lower() == "true"):
 			folder = False
 		cm_url_download = PNEUMATIC_URL + '?mode=' + MODE_DOWNLOAD + url
 		cm.append((cm_label , "XBMC.RunPlugin(%s)" % (cm_url_download)))
