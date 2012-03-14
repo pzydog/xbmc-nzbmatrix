@@ -33,9 +33,9 @@ __settings__ = xbmcaddon.Addon(id='plugin.video.nzbmatrix')
 __language__ = __settings__.getLocalizedString
 
 TMDB_URL = 'http://api.themoviedb.org/2.1/Movie.imdbLookup/en/xml/'
-NZBS_URL = "plugin://plugin.video.nzbs"
 RSS_URL = "http://rss.nzbmatrix.com/rss.php?page=download"
 BOOKMARKS_URL = "http://nzbmatrix.com/rss-bookmarks.php"
+PNEUMATIC_URL = "plugin://plugin.program.pneumatic"
 
 ADDON_PATH = __settings__.getAddonInfo("path")
 ADDON_DATA_PATH = __settings__.getAddonInfo("profile")
@@ -44,8 +44,10 @@ CACHEDIR = os.path.join(xbmc.translatePath(ADDON_DATA_PATH), 'meta_cache')
 TMDB_API_KEY = "57983e31fb435df4df77afb854740ea9"
 
 MODE_LIST = "list"
+MODE_PLAY = "play"
 MODE_DOWNLOAD = "download"
 MODE_INCOMPLETE = "incomplete"
+MODE_STRM = "save_strm"
 
 MODE_NZBMATRIX = "nzbmatrix"
 MODE_SEARCH = "nzbmatrix&nzbmatrix=search"
@@ -169,7 +171,7 @@ def nzbmatrix(params):
 			addPosts({'title': __language__(30044), 'thumb': os.path.join(ADDON_PATH, "resources/icons/bookmarks.png")}, '', MODE_BOOKMARKS, True)
 			addPosts({'title': __language__(30037), 'thumb': os.path.join(ADDON_PATH, "resources/icons/incomplete.png")}, '', MODE_INCOMPLETE, True)
 	return
- 
+
 def addPosts(meta, url, mode, folder=False, bookmarkList=False):
 	if not meta.has_key('thumb'):
 		meta.update({'thumb': ''})
@@ -178,42 +180,45 @@ def addPosts(meta, url, mode, folder=False, bookmarkList=False):
 	if meta.has_key('fanart'):
 		listitem.setProperty("Fanart_Image", meta['fanart'])
 	listitem.setInfo(type="video", infoLabels=meta)
-	if mode == MODE_LIST:
+	if mode == MODE_PLAY:
 		cm = []
-		cm_mode = MODE_DOWNLOAD
 		cm_label = __language__(30070)
-		if (__settings__.getSetting("auto_play").lower() == "true"):
+		if (xbmcaddon.Addon(id='plugin.program.pneumatic').getSetting("auto_play").lower() == "true"):
 			folder = False
-		cm_url_download = NZBS_URL + '?mode=' + cm_mode + url
+		cm_url_download = PNEUMATIC_URL + '?mode=' + MODE_DOWNLOAD + url
 		cm.append((cm_label , "XBMC.RunPlugin(%s)" % (cm_url_download)))
+
+		cm_url_strm = PNEUMATIC_URL + '?mode=' + MODE_STRM + url
+		cm.append((__language__(30079) , "XBMC.RunPlugin(%s)" % (cm_url_strm)))
 
 		if(bookmarkList):
 			cm.append((__language__(30072) , "XBMC.RunPlugin(%s)" % (sys.argv[0] + "?nzbmatrix=remove_bookmark&nzb=" + url)))
 		else:
 			cm.append((__language__(30071) , "XBMC.RunPlugin(%s)" % (sys.argv[0] + "?nzbmatrix=add_bookmark&nzb=" + url)))
-			
+
 		listitem.addContextMenuItems(cm, replaceItems=False)
-		xurl = "%s?mode=%s" % (NZBS_URL,mode)
+		xurl = "%s?mode=%s" % (PNEUMATIC_URL,mode)
 	elif mode == MODE_INCOMPLETE:
-		xurl = "%s?mode=%s" % (NZBS_URL,mode)
+		xurl = "%s?mode=%s" % (PNEUMATIC_URL,mode)
 	else:
 		xurl = "%s?mode=%s" % (sys.argv[0],mode)
 	xurl = xurl + url
+	print xurl
 	listitem.setPath(xurl)
 	return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=xurl, listitem=listitem, isFolder=folder)
- 
-# FROM plugin.video.youtube.beta  -- converts the request url passed on by xbmc to our plugin into a dict  
+
+# FROM plugin.video.youtube.beta  -- converts the request url passed on by xbmc to our plugin into a dict
 def getParameters(parameterString):
 	commands = {}
 	splitCommands = parameterString[parameterString.find('?')+1:].split('&')
-	
-	for command in splitCommands: 
+
+	for command in splitCommands:
 		if (len(command) > 0):
 			splitCommand = command.split('=')
 			name = splitCommand[0]
 			value = splitCommand[1]
 			commands[name] = value
-	
+
 	return commands
 
 def get_node_value(parent, name, ns=""):
@@ -279,7 +284,7 @@ def list_feed_nzbmatrix(feedUrl, bookmarkList=False):
 	if not doc:
 		return False
 	re_imdb_id = 'imdb.com/title/(tt[0-9]+)'
-	mode = MODE_LIST
+	mode = MODE_PLAY
 	scrape = __settings__.getSetting("scrape_metadata")
 
 	for item in doc.getElementsByTagName("item"):
@@ -307,7 +312,7 @@ def list_feed_nzbmatrix(feedUrl, bookmarkList=False):
 # @param dict metadata the dictonairy to use
 # @return dict
 def get_metadata(imdb_id, metadata):
-	
+
 	# check if the xml info exists in the cache
 	# if not create one
 	xml_path = os.path.join(CACHEDIR, imdb_id + '.xml')
@@ -339,13 +344,13 @@ def get_metadata(imdb_id, metadata):
 				metadata['rating'] = float(get_node_value(movie_meta, "rating"))
 				metadata['mpaa'] = get_node_value(movie_meta, "certification")
 				metadata['duration'] = get_node_value(movie_meta, "runtime")
-				
+
 				# Extract the year
 				metadata['premiered'] = get_node_value(movie_meta, "released")
 				if metadata['premiered'] != '':
 					year = time.strptime(metadata['premiered'],"%Y-%m-%d")
 					metadata['year'] = year.tm_year
-				
+
 				for images in movie_meta.getElementsByTagName("images"):
 					for i in images.getElementsByTagName("image"):
 						if i.getAttribute('size') == 'original' and i.getAttribute('type') == 'poster' and metadata['thumb'] == '':
@@ -405,7 +410,7 @@ def search(dialog_name):
 	encodedSearchString = urllib.quote_plus(searchString.decode("utf_8").encode("raw_unicode_escape"))
 	return encodedSearchString
 
-#From old undertexter.se plugin	
+#From old undertexter.se plugin
 def unikeyboard(default, message):
 	keyboard = xbmc.Keyboard(default, message)
 	keyboard.doModal()

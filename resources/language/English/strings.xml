@@ -33,7 +33,7 @@
     <string id="30042">Searching for: </string>
     <string id="30045">Error: Wrong username or API key</string>
     <string id="30046">Error: Invalid response</string>
-	
+
 	<!-- Misc string -->
     <string id="30070">Download</string>
     <string id="30071">Add to bookmarks</string>
@@ -44,5 +44,6 @@
 	<string id="30076">Removing bookmark...</string>
     <string id="30077">Bookmark removed!</string>
     <string id="30078">Couldn't remove bookmark...</string>
-	
+    <string id="30079">Add to XBMC library</string>
+
 </strings>
