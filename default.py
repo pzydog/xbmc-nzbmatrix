@@ -171,8 +171,7 @@ def nzbmatrix(params):
 					key = "&catid=53,9"
 				addPosts({'title': name}, key, MODE_NZBMATRIX, True)
 			addPosts({'title': __language__(30044), 'thumb': os.path.join(ADDON_PATH, "resources/icons/bookmarks.png")}, '', MODE_BOOKMARKS, True)
-			if __psettings__.getSetting("sabnzbd_incomplete") != '':
-				addPosts({'title': __language__(30037), 'thumb': os.path.join(ADDON_PATH, "resources/icons/incomplete.png")}, '', MODE_INCOMPLETE, True)
+			addPosts({'title': __language__(30037), 'thumb': os.path.join(ADDON_PATH, "resources/icons/incomplete.png")}, '', MODE_INCOMPLETE, True)
 	return
 
 def addPosts(meta, url, mode, folder=False, bookmarkList=False):
