@@ -88,6 +88,8 @@ def nzbmatrix(params):
 			nzbmatrix = get("nzbmatrix")
 			url = None
 			if nzbmatrix:
+				if nzbmatrix == "pneumatic_settings":
+					__psettings__.openSettings()
 				if nzbmatrix == "bookmarks":
 					user_id = get_user_id()
 					if user_id:

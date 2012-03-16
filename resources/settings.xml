@@ -5,6 +5,7 @@
 		<setting id="scrape_metadata" type="bool" label="30035"/>
 		<setting id="show_scene_title" enable="eq(-1,true)" type="bool" label="30036"/>
 		<setting id="delete_cache" enable="eq(-2,true)" type="action" label="30060" action="RunPlugin(plugin://plugin.video.nzbmatrix/?nzbmatrix=delete_cache)"/>
+		<setting id="pneumatic_settings" type="action" label="30061" option="close" action="RunPlugin(plugin://plugin.video.nzbmatrix/?nzbmatrix=pneumatic_settings)"/>
 	</category>
 	<category label="30021">
 		<setting id="nzbmatrix_username" type="text" label="30031" default="" />
