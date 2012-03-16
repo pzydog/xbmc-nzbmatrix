@@ -1,4 +1,4 @@
-NZBMatrix addon for xbmc-nzbs
+NZBMatrix addon for xbmc-pneumatic
 =============================
 
 * Author:  pzydog
