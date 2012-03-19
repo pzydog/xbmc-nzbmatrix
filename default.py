@@ -207,7 +207,6 @@ def addPosts(meta, url, mode, folder=False, bookmarkList=False):
 	else:
 		xurl = "%s?mode=%s" % (sys.argv[0],mode)
 	xurl = xurl + url
-	print xurl
 	listitem.setPath(xurl)
 	return xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=xurl, listitem=listitem, isFolder=folder)
 
