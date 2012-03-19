@@ -100,7 +100,6 @@ def nzbmatrix(params):
 					search_term = search('nzbmatrix')
 					if search_term:
 						url = generateFeedUrl(catid, search_term)
-						list_feed_nzbmatrix(url)
 						if not list_feed_nzbmatrix(url):
 							xbmcgui.Dialog().ok(__language__(30030),__language__(30039))
 				elif nzbmatrix == "add_bookmark":
